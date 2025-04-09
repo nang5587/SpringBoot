@@ -1,0 +1,64 @@
+package edu.pnu.controller;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import edu.pnu.domain.MemberVO;
+
+@RestController
+public class MemberController {
+	private List<MemberVO> memberVO = new ArrayList<>();
+	
+	public MemberController() {
+		for(int i=1; i<=10; i++) {
+			memberVO.add(memberVO.builder()
+					.id(i)
+					.name("name" + i)
+					.pass("pass" + i)
+					.regidate(new Date())
+					.build());
+		}
+	}
+	
+	@GetMapping("/members")
+	public MemberVO getAllMember() {
+		for(MemberVO m : memberVO) {	
+				return m;
+		}
+		return null;
+	}
+	@GetMapping("/member")
+	public MemberVO getMember(Integer id) {
+		for(MemberVO m : memberVO) {
+			if(m.getId() == id) {
+				return m;
+			}
+		}
+		return null;
+	}
+	
+	@PostMapping("/member")
+	public int postMember(MemberVO m) {
+		if(getMember(m.getId()) != null) {
+			return 0;
+		}
+		m.setRegidate(new Date());
+		memberVO.add(m);
+		return 1;
+	}
+	@DeleteMapping("/member")
+	public int deleteMember(Integer id) {
+		try {
+			memberVO.remove();
+		}
+		catch(Exception e) {
+			return 0;
+		}
+	}
+}

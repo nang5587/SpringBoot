@@ -1,0 +1,91 @@
+package edu.pnu.controller;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+//import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import edu.pnu.domain.MemberVO;
+
+@RestController
+public class MemberController {
+	private List<MemberVO> list = new ArrayList<>();
+	
+	public MemberController() {
+		for(int i=1; i<=10; i++) {
+			list.add(MemberVO.builder()
+					.id(i)
+					.name("name" + i)
+					.pass("pass" + i)
+					.regidate(new Date())
+					.build());
+		}
+	}
+	
+	@GetMapping("/members")
+	public List<MemberVO> getAllMember() {
+		return list;
+	}
+	@GetMapping("/member")
+	public MemberVO getMember(int id) {
+		for(MemberVO m : list) {
+			if(m.getId() == id) {
+				return m;
+			}
+		}
+		return null;
+	}
+	
+//	@GetMapping("/member")
+//	public ResponseEntity<?> getMember(Integer id) {
+//		for(MemberVO m : memberVO) {
+//			if(m.getId() == id) {
+//				return ResponseEntity.ok(m);
+//			}
+//		}
+//		return ResponseEntity.notFound().build();
+//	}
+	
+	@PostMapping("/member")
+	public int postMember(MemberVO m) {
+		if(getMember(m.getId()) != null) {
+			return 0;
+		}
+		m.setRegidate(new Date());
+		list.add(m);
+		return 1;
+	}
+	@DeleteMapping("/member")
+	public int deleteMember(int id) {
+		try {
+			list.remove(getMember(id));
+			return 1;
+		}
+		catch(Exception e) {
+			return 0;
+		}
+	}
+	@PutMapping("/member")
+	public MemberVO putMember(MemberVO m) {
+		if(getMember(m.getId()) != null) {
+			return null;
+		}
+		MemberVO member = getMember(m.getId());
+		member.setId(m.getId());
+		member.setName(m.getName());
+		member.setPass(m.getPass());
+		
+		return m;
+	}
+//	@PostMapping("/memberJSON")
+//	public MemberVO postMemberJSON(MemberVO m) {
+//		
+//	}
+	
+}
