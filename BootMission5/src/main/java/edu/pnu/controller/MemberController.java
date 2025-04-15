@@ -1,0 +1,64 @@
+package edu.pnu.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import edu.pnu.domain.MemberDTO;
+import edu.pnu.service.MemberService;
+//import lombok.RequiredArgsConstructor;
+
+//@RequiredArgsConstructor
+@RestController
+@RequestMapping("/api")
+public class MemberController {
+// 1. 필드에 바로 적용
+	@Autowired
+	private MemberService service;
+
+// 2. 생성자 이용
+//	public MemberController() {
+//		System.out.println("MemberController");
+//	}
+
+// 3. setter 이용
+	public void setService(MemberService service) {
+		this.service = service;
+	}
+	
+// 4. Lombok Annotaion 이용	
+//	@Autowired
+//	private final MemberService service;
+
+	@GetMapping("/members")
+	public List<MemberDTO> getMembers(){
+		return service.getMembers();
+	}
+	
+	@GetMapping("/member/{id}")
+	public MemberDTO getMember(@PathVariable int id) {
+		return service.getMember(id);
+	}
+	
+	@PostMapping("/member")
+	public int postMember(MemberDTO member) {
+		return service.postMember(member);
+	}
+	
+	@DeleteMapping("/member/{id}")
+	public int deleteMember(@PathVariable int id) {
+		return service.deleteMember(id);
+	}
+	
+	@PutMapping("/member")
+	public int putMember(MemberDTO member) {
+		return service.putMember(member);
+	}
+}
