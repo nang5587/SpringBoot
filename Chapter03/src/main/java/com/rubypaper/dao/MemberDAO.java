@@ -1,4 +1,4 @@
-package edu.pnu.dao;
+package com.rubypaper.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,8 +7,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import edu.pnu.common.JDBConnect;
-import edu.pnu.domain.MemberDTO;
+import com.rubypaper.common.JDBConnect;
+import com.rubypaper.domain.MemberDTO;
 
 @Repository
 public class MemberDAO extends JDBConnect {
@@ -64,6 +64,7 @@ public class MemberDAO extends JDBConnect {
 				map.put("success", true);
 				map.put("sqlstring", psmt.toString().split(":")[1].trim());
 				map.put("member", dto);
+				map.put("message", "해당 정보를 불러왔습니다.");
 			}
 			else {
 				map.put("success", false);

@@ -1,4 +1,4 @@
-package edu.pnu.controller;
+package com.rubypaper.controller;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import edu.pnu.domain.MemberDTO;
-import edu.pnu.service.MemberService;
+import com.rubypaper.domain.MemberDTO;
+import com.rubypaper.service.MemberService;
 
 @RestController
 public class MemberController {
