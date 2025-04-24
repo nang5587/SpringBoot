@@ -73,4 +73,5 @@ public class Mission1Test {
 			System.out.println(board);
 		}
 	}
+
 }
